@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Weather</string>
+    <string name="location_hint_label">Enter city or zip</string>
+    <string name="location_submit_button_label">submit</string>
+
+    <string name="item_forecast_temperature_label">Temperature (F):</string>
+    <string name="item_forecast_pressure_label">Pressure:</string>
+    <string name="item_forecast_humidity_label">Humidity:</string>
+    <string name="item_forecast_current_condition_label">Current condition:</string>
+    <string name="item_forecast_chance_of_precipitation_label">Chance of precipitation:</string>
+
+    <string name="today">Today</string>
+    <string name="tomorrow">Tomorrow</string>
+    <string name="fahrenheit_temperature">%dF</string>
+    <string name="precipitation_percentage">%d%%</string>
+</resources>
