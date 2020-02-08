@@ -20,14 +20,14 @@ class WeatherActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         viewModel = ViewModelProviders.of(this)[WeatherViewModel::class.java]
-        adapter = ForecastListAdapter()
-        forecast_list.adapter = adapter
         setupViews()
         setupListeners()
         setupLiveData()
     }
 
     private fun setupViews() {
+        adapter = ForecastListAdapter()
+        forecast_list.adapter = adapter
         popupMenu = PopupMenu(this, location_input_layout).apply {
             setOnMenuItemClickListener { item ->
                 location_input_edit_text.setText(item.title.toString().substringBefore(" ("))
