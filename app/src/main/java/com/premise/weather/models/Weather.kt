@@ -9,8 +9,9 @@ data class Weather(
     @SerializedName("consolidated_weather")
     val forecasts: List<Forecast>,
     @SerializedName("woeid")
-    val locationId: Long,
-    val title: String
+    val locationId: Int,
+    val title: String,
+    val latt_long: String
 )
 
 data class Forecast(

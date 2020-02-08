@@ -65,10 +65,13 @@ class WeatherViewModel : ViewModel() {
         }
     }
 
-    fun refreshForecast() {
-        val currentLocationId = forecastData.value?.data?.locationId
-        if (currentLocationId != null) {
-            WeatherRepository.getWeather(currentLocationId)
+    fun submitLocation(locationId: Int?) {
+        if (locationId != null) {
+            WeatherRepository.getWeather(locationId)
         }
+    }
+
+    fun refreshForecast() {
+        submitLocation(forecastData.value?.data?.locationId)
     }
 }

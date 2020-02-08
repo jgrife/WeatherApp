@@ -1,6 +1,8 @@
 package com.premise.weather
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.Menu
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -28,8 +30,8 @@ class WeatherActivity : AppCompatActivity() {
     private fun setupViews() {
         popupMenu = PopupMenu(this, location_input_layout).apply {
             setOnMenuItemClickListener { item ->
-                location_input_edit_text.setText(item.title)
-                viewModel.submitLocation(location_input_edit_text.text.toString())
+                location_input_edit_text.setText(item.title.toString().substringBefore(" ("))
+                viewModel.submitLocation(item.itemId)
                 true
             }
         }
@@ -43,18 +45,27 @@ class WeatherActivity : AppCompatActivity() {
         swipe_refresh.setOnRefreshListener { viewModel.refreshForecast() }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setupLiveData() {
         viewModel.locationData.observe(this, Observer {
             if (it == null || it.isEmpty()) {
                 popupMenu.dismiss()
             } else {
-                it.forEach { location -> popupMenu.menu.add(location.title) }
+                popupMenu.menu.clear()
+                it.forEach { location ->
+                    popupMenu.menu.add(
+                        Menu.NONE,
+                        location.locationId,
+                        Menu.NONE,
+                        "${location.title} (${location.latt_long})"
+                    )
+                }
                 popupMenu.show()
             }
         })
 
         viewModel.forecastData.observe(this, Observer {
-            forecast_city_state.text = it.data?.title
+            forecast_city_state.text = if (it.data == null) "" else "${it.data.title} (${it.data.latt_long})"
             adapter.submitList(it.data?.forecasts)
             swipe_refresh.isRefreshing = it.status == Status.LOADING
             swipe_refresh.isEnabled = it.status == Status.SUCCESS || it.status == Status.LOADING

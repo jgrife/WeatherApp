@@ -8,5 +8,5 @@ import retrofit2.http.Path
 interface WeatherApi {
 
     @GET("location/{id}")
-    fun getLocations(@Path("id") locationId: Long): Call<Weather>
+    fun getLocations(@Path("id") locationId: Int): Call<Weather>
 }
